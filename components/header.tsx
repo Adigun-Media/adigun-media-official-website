@@ -7,20 +7,36 @@ import { Menu, X, Moon, Sun } from 'lucide-react'
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isDark, setIsDark] = useState(true)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Check system preference on mount
+    // Check localStorage and HTML element on mount
+    setMounted(true)
     const htmlElement = document.documentElement
-    setIsDark(htmlElement.classList.contains('dark'))
+    const savedTheme = localStorage.getItem('theme')
+    
+    if (savedTheme === 'light') {
+      htmlElement.classList.remove('dark')
+      setIsDark(false)
+    } else if (savedTheme === 'dark') {
+      htmlElement.classList.add('dark')
+      setIsDark(true)
+    } else {
+      // Default to dark
+      htmlElement.classList.add('dark')
+      setIsDark(true)
+    }
   }, [])
 
   const toggleTheme = () => {
     const htmlElement = document.documentElement
     if (isDark) {
       htmlElement.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
       setIsDark(false)
     } else {
       htmlElement.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
       setIsDark(true)
     }
   }
