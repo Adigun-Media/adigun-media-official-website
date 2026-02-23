@@ -19,29 +19,42 @@ const generateRandomActivity = (): ActivityNotification => {
 }
 
 export function ActivityPopup() {
-  const [activities, setActivities] = useState<ActivityNotification[]>([])
+  const [activity, setActivity] = useState<ActivityNotification | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    // Generate initial activity
-    setActivities([generateRandomActivity()])
+    // Check if mobile
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
 
-    // Generate new activity every 4 seconds
+    // Show initial activity
+    setActivity(generateRandomActivity())
+
+    // Generate new activity every 60 seconds
     const interval = setInterval(() => {
-      const newActivity = generateRandomActivity()
-      setActivities((prev) => [newActivity, ...prev].slice(0, 3))
-    }, 4000)
+      setActivity(generateRandomActivity())
+    }, 60000)
 
-    return () => clearInterval(interval)
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener('resize', checkMobile)
+    }
   }, [])
 
-  const removeActivity = (id: string) => {
-    setActivities((prev) => prev.filter((a) => a.id !== id))
+  const removeActivity = () => {
+    setActivity(null)
+  }
+
+  // Don't show on mobile to prevent scroll blocking
+  if (isMobile) {
+    return null
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 max-w-sm">
-      <AnimatePresence mode="popLayout">
-        {activities.map((activity, idx) => (
+    <div className="fixed bottom-6 right-6 z-40 max-w-sm pointer-events-none">
+      <AnimatePresence>
+        {activity && (
           <motion.div
             key={activity.id}
             initial={{ opacity: 0, x: 100, y: 20 }}
@@ -49,10 +62,11 @@ export function ActivityPopup() {
             exit={{ opacity: 0, x: 100 }}
             transition={{ duration: 0.3 }}
             onAnimationComplete={() => {
-              // Auto-remove after 5 seconds
-              setTimeout(() => removeActivity(activity.id), 5000)
+              // Auto-remove after 8 seconds
+              const timer = setTimeout(() => removeActivity(), 8000)
+              return () => clearTimeout(timer)
             }}
-            className="mb-3 bg-background border border-border rounded-lg p-4 shadow-lg backdrop-blur-sm"
+            className="mb-3 bg-background border border-border rounded-lg p-4 shadow-lg backdrop-blur-sm pointer-events-auto"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
@@ -65,14 +79,14 @@ export function ActivityPopup() {
                 </div>
               </div>
               <button
-                onClick={() => removeActivity(activity.id)}
-                className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => removeActivity()}
+                className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors pointer-events-auto"
               >
                 <X size={16} />
               </button>
             </div>
           </motion.div>
-        ))}
+        )}
       </AnimatePresence>
     </div>
   )

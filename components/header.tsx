@@ -1,11 +1,29 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Moon, Sun } from 'lucide-react'
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isDark, setIsDark] = useState(true)
+
+  useEffect(() => {
+    // Check system preference on mount
+    const htmlElement = document.documentElement
+    setIsDark(htmlElement.classList.contains('dark'))
+  }, [])
+
+  const toggleTheme = () => {
+    const htmlElement = document.documentElement
+    if (isDark) {
+      htmlElement.classList.remove('dark')
+      setIsDark(false)
+    } else {
+      htmlElement.classList.add('dark')
+      setIsDark(true)
+    }
+  }
 
   const navLinks = [
     { href: '#services', label: 'Services' },
@@ -19,8 +37,8 @@ export function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">
-          <Link href="/" className="text-2xl font-bold text-accent">
-            ADIGUN
+          <Link href="/" className="text-xl font-bold text-accent">
+            ADIGUN MEDIA
           </Link>
         </div>
 
@@ -35,13 +53,27 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg hover:bg-secondary transition-colors text-foreground"
+            aria-label="Toggle theme"
+          >
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
           <button className="bg-accent text-accent-foreground px-6 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
             Let's Talk
           </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        {/* Mobile Menu Button and Theme Toggle */}
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg hover:bg-secondary transition-colors text-foreground"
+            aria-label="Toggle theme"
+          >
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 rounded-lg hover:bg-secondary transition-colors"
