@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
@@ -21,7 +21,7 @@ export function Hero() {
           className="inline-flex items-center gap-2 bg-secondary/50 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6 border border-accent/30"
         >
           <span className="w-2 h-2 bg-accent rounded-full" />
-          Lagos-based Creative Studio
+          Delta-based Creative Studio
         </motion.div>
 
         {/* Main heading */}
@@ -42,7 +42,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance"
         >
-          We create stunning visual experiences that elevate brands and drive results. From concept to execution, we bring your vision to life.
+          We create stunning visual experiences that elevate brands and drive
+          results. From concept to execution, we bring your vision to life.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -54,7 +55,10 @@ export function Hero() {
         >
           <button className="bg-accent text-accent-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center gap-2 group">
             Get Started
-            <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+            <ArrowRight
+              className="group-hover:translate-x-1 transition-transform"
+              size={20}
+            />
           </button>
           <button className="border border-accent text-accent px-8 py-4 rounded-lg font-semibold hover:bg-accent/10 transition-colors">
             View Our Work
@@ -62,5 +66,5 @@ export function Hero() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

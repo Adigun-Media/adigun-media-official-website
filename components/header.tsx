@@ -1,52 +1,52 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Menu, X, Moon, Sun } from 'lucide-react'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Menu, X, Moon, Sun } from "lucide-react";
 
 export function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isDark, setIsDark] = useState(true)
-  const [mounted, setMounted] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // Check localStorage and HTML element on mount
-    setMounted(true)
-    const htmlElement = document.documentElement
-    const savedTheme = localStorage.getItem('theme')
-    
-    if (savedTheme === 'light') {
-      htmlElement.classList.remove('dark')
-      setIsDark(false)
-    } else if (savedTheme === 'dark') {
-      htmlElement.classList.add('dark')
-      setIsDark(true)
+    setMounted(true);
+    const htmlElement = document.documentElement;
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "light") {
+      htmlElement.classList.remove("dark");
+      setIsDark(false);
+    } else if (savedTheme === "dark") {
+      htmlElement.classList.add("dark");
+      setIsDark(true);
     } else {
       // Default to dark
-      htmlElement.classList.add('dark')
-      setIsDark(true)
+      htmlElement.classList.add("dark");
+      setIsDark(true);
     }
-  }, [])
+  }, []);
 
   const toggleTheme = () => {
-    const htmlElement = document.documentElement
+    const htmlElement = document.documentElement;
     if (isDark) {
-      htmlElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-      setIsDark(false)
+      htmlElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      setIsDark(false);
     } else {
-      htmlElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-      setIsDark(true)
+      htmlElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      setIsDark(true);
     }
-  }
+  };
 
   const navLinks = [
-    { href: '#services', label: 'Services' },
-    { href: '#portfolio', label: 'Portfolio' },
-    { href: '#about', label: 'About' },
-    { href: '#contact', label: 'Contact' },
-  ]
+    { href: "#services", label: "Services" },
+    { href: "#portfolio", label: "Portfolio" },
+    { href: "#about", label: "About" },
+    { href: "#contact", label: "Contact" },
+  ];
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -120,5 +120,5 @@ export function Header() {
         </div>
       )}
     </header>
-  )
+  );
 }

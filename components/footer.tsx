@@ -1,7 +1,14 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { Mail, Phone, MapPin, Linkedin, Twitter, Instagram } from 'lucide-react'
+import Link from "next/link";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Twitter,
+  Instagram,
+} from "lucide-react";
 
 export function Footer() {
   return (
@@ -13,7 +20,8 @@ export function Footer() {
           <div>
             <h3 className="text-2xl font-bold text-accent mb-4">ADIGUN</h3>
             <p className="text-muted-foreground">
-              Lagos-based creative studio crafting world-class designs and media solutions.
+              Delta-based creative studio crafting world-class designs and media
+              solutions.
             </p>
           </div>
 
@@ -22,13 +30,16 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {[
-                { label: 'Portfolio', href: '#portfolio' },
-                { label: 'Services', href: '#services' },
-                { label: 'About', href: '#about' },
-                { label: 'Contact', href: '#contact' },
+                { label: "Portfolio", href: "#portfolio" },
+                { label: "Services", href: "#services" },
+                { label: "About", href: "#about" },
+                { label: "Contact", href: "#contact" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-muted-foreground hover:text-accent transition-colors">
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-accent transition-colors"
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -60,11 +71,11 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">Follow Us</h4>
             <div className="flex gap-4">
               {[
-                { icon: Linkedin, href: '#' },
-                { icon: Twitter, href: '#' },
-                { icon: Instagram, href: '#' },
+                { icon: Linkedin, href: "#" },
+                { icon: Twitter, href: "#" },
+                { icon: Instagram, href: "#" },
               ].map((social, idx) => {
-                const Icon = social.icon
+                const Icon = social.icon;
                 return (
                   <Link
                     key={idx}
@@ -73,7 +84,7 @@ export function Footer() {
                   >
                     <Icon size={20} />
                   </Link>
-                )
+                );
               })}
             </div>
           </div>
@@ -84,17 +95,25 @@ export function Footer() {
 
         {/* Bottom Footer */}
         <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm">© 2024 ADIGUN MEDIA. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">
+            © 2024 ADIGUN MEDIA. All rights reserved.
+          </p>
           <div className="flex gap-6">
-            <Link href="#" className="text-muted-foreground hover:text-accent transition-colors text-sm">
+            <Link
+              href="#"
+              className="text-muted-foreground hover:text-accent transition-colors text-sm"
+            >
               Privacy Policy
             </Link>
-            <Link href="#" className="text-muted-foreground hover:text-accent transition-colors text-sm">
+            <Link
+              href="#"
+              className="text-muted-foreground hover:text-accent transition-colors text-sm"
+            >
               Terms of Service
             </Link>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
